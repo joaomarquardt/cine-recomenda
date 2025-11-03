@@ -1,5 +1,7 @@
 package dev.spring.movie_recommendation.services;
 
+import dev.spring.movie_recommendation.domain.enums.MoodOptions;
+import dev.spring.movie_recommendation.domain.enums.SortByOptions;
 import dev.spring.movie_recommendation.dtos.MovieRecommendationsResponseDTO;
 import dev.spring.movie_recommendation.dtos.MovieResponseDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -77,8 +79,10 @@ public class MovieRecommendationService {
     public MovieResponseDTO randomRecommendation(List<Long> genreIds, Integer decade, String sort_by,
                                                  String mood, String with_origin_country, String with_original_language,
                                                  Integer with_runtime_gte, Integer with_runtime_lte, String response_language) {
-        MovieRecommendationsResponseDTO movieRecommendations = this.recommendationsByParams(genreIds, decade, sort_by,
-                mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language, 1);
+        String finalSortBy = sort_by != null ? sort_by : SortByOptions.getRandomSortBy().getValue();
+        String finalMood = mood != null ? mood : MoodOptions.getRandomMood().name();
+        MovieRecommendationsResponseDTO movieRecommendations = this.recommendationsByParams(genreIds, decade, finalSortBy,
+                finalMood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language, 1);
         if (movieRecommendations.results().isEmpty() || movieRecommendations.total_results() == 0) {
             return null;
         }
