@@ -21,6 +21,8 @@ public class MovieRecommendationService {
     private RestClient restClientMotn;
     @Value("${tmdb.filter.vote-count-min:500}")
     private Integer voteCountGte;
+    @Value("${tmdb.filter.vote-average-min:6}")
+    private Double voteAverageGte;
 
     public MovieRecommendationService(@Qualifier("restClientTmdb") RestClient restClientTmdb,
                                       @Qualifier("restClientMotn") RestClient restClientMotn) {
@@ -69,6 +71,9 @@ public class MovieRecommendationService {
                     }
                     if (voteCountGte != null && voteCountGte > 0) {
                         builder.queryParam("vote_count.gte", voteCountGte);
+                    }
+                    if (voteAverageGte != null && voteAverageGte > 0) {
+                        builder.queryParam("vote_average.gte", voteAverageGte);
                     }
                     return builder.build();
                 })
