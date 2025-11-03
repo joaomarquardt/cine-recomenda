@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Random;
 
 public enum MoodOptions {
-    HAPPY(List.of(35, 10751, 16, 10402)),
-    ROMANTIC(List.of(10749, 18, 10402)),
-    SPOOKY(List.of(27, 53, 9648)),
-    ADVENTUROUS(List.of(28, 12, 14, 878)),
-    HISTORY(List.of(36, 10752, 99, 18)),
-    RELAXING(List.of(37, 10770));
+    HAPPY(List.of(35L, 10751L, 16L, 10402L)),
+    ROMANTIC(List.of(10749L, 18L, 10402L)),
+    SPOOKY(List.of(27L, 53L, 9648L)),
+    ADVENTUROUS(List.of(28L, 12L, 14L, 878L)),
+    HISTORY(List.of(36L, 10752L, 99L, 18L)),
+    RELAXING(List.of(37L, 10770L));
 
-    private final List<Integer> genreIds;
+    private final List<Long> genreIds;
 
-    MoodOptions(List<Integer> genreIds) {
+    MoodOptions(List<Long> genreIds) {
         this.genreIds = genreIds;
     }
 
-    public List<Integer> getGenreIds() {
+    public List<Long> getGenreIds() {
         return genreIds;
     }
 
