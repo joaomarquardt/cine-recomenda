@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -33,12 +34,26 @@ public class MovieRecommendationService {
     public MovieRecommendationsResponseDTO recommendationsByParams(List<Long> genreIds, Integer decade, String sort_by, String mood, String with_origin_country,
                                                                    String with_original_language, Integer with_runtime_gte,
                                                                    Integer with_runtime_lte, String response_language, Integer page) {
+        List<Long> finalGenreIds = new ArrayList<>();
+        if (genreIds != null && !genreIds.isEmpty()) {
+            finalGenreIds.addAll(genreIds);
+        }
+        if (mood != null) {
+            try {
+                MoodOptions moodOption = MoodOptions.valueOf(mood.toUpperCase());
+                List<Long> moodGenreIds = moodOption.getGenreIds();
+                finalGenreIds.addAll(moodGenreIds);
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException("Invalid mood option: " + mood);
+            }
+        }
         return restClientTmdb.get()
                 .uri(uriBuilder -> {
                     UriBuilder builder = uriBuilder.path("discover/movie");
-                    if (genreIds != null && !genreIds.isEmpty()) {
-                        String genreString = genreIds.stream()
+                    if (!finalGenreIds.isEmpty()) {
+                        String genreString = finalGenreIds.stream()
                                 .map(String::valueOf)
+                                .distinct()
                                 .collect(Collectors.joining(","));
                         builder.queryParam("with_genres", genreString);
                     }
