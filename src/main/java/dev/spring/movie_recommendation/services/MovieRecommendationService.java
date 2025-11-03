@@ -29,7 +29,7 @@ public class MovieRecommendationService {
         return restClientTmdb.get()
                 .uri(uriBuilder -> {
                     UriBuilder builder = uriBuilder.path("discover/movie");
-                    if (!genreIds.isEmpty()) {
+                    if (genreIds != null && !genreIds.isEmpty()) {
                         String genreString = genreIds.stream()
                                 .map(String::valueOf)
                                 .collect(Collectors.joining(","));
