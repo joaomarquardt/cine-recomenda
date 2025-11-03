@@ -25,8 +25,8 @@ public class MovieRecommendationController {
     @GetMapping("/recommendations")
     public ResponseEntity<MovieRecommendationsResponseDTO> recommendationsByParams(@RequestParam(required = false)List<Long> genreIds, @RequestParam(required = false) Integer decade, @RequestParam(required = false) String sort_by,
                                                     @RequestParam(required = false) String mood, @RequestParam(required = false) String with_origin_country, @RequestParam(required = false) String with_original_language, @RequestParam(required = false) Integer with_runtime_gte,
-                                                    @RequestParam(required = false) Integer with_runtime_lte, @RequestParam(required = false) String response_language) {
-        MovieRecommendationsResponseDTO movieRecommendations = movieRecommendationService.recommendationsByParams(genreIds, decade, sort_by, mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language);
+                                                    @RequestParam(required = false) Integer with_runtime_lte, @RequestParam(required = false) String response_language, @RequestParam(required = false) Integer page) {
+        MovieRecommendationsResponseDTO movieRecommendations = movieRecommendationService.recommendationsByParams(genreIds, decade, sort_by, mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language, page);
         return new ResponseEntity<>(movieRecommendations, HttpStatus.OK);
     }
 

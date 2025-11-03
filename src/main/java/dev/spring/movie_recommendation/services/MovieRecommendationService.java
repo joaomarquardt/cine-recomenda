@@ -25,7 +25,7 @@ public class MovieRecommendationService {
 
     public MovieRecommendationsResponseDTO recommendationsByParams(List<Long> genreIds, Integer decade, String sort_by, String mood, String with_origin_country,
                                                                    String with_original_language, Integer with_runtime_gte,
-                                                                   Integer with_runtime_lte, String response_language) {
+                                                                   Integer with_runtime_lte, String response_language, Integer page) {
         return restClientTmdb.get()
                 .uri(uriBuilder -> {
                     UriBuilder builder = uriBuilder.path("discover/movie");
