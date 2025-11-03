@@ -23,7 +23,9 @@ public class MovieRecommendationService {
         this.restClientMotn = restClientMotn;
     }
 
-    public MovieRecommendationsResponseDTO recommendationsByParams(List<Long> genreIds, Integer decade, String sort_by, String mood, String with_origin_country, String with_original_language, Integer with_runtime_gte, Integer with_runtime_lte, String response_language) {
+    public MovieRecommendationsResponseDTO recommendationsByParams(List<Long> genreIds, Integer decade, String sort_by, String mood, String with_origin_country,
+                                                                   String with_original_language, Integer with_runtime_gte,
+                                                                   Integer with_runtime_lte, String response_language) {
         return restClientTmdb.get()
                 .uri(uriBuilder -> {
                     UriBuilder builder = uriBuilder.path("discover/movie");
@@ -64,8 +66,11 @@ public class MovieRecommendationService {
                 .body(new ParameterizedTypeReference<MovieRecommendationsResponseDTO>() {});
     }
 
-    public MovieResponseDTO randomRecommendation(List<Long> genreIds, Integer decade, String sort_by, String mood, String with_origin_country, String with_original_language, Integer with_runtime_gte, Integer with_runtime_lte, String response_language) {
-        MovieRecommendationsResponseDTO movieRecommendations = this.recommendationsByParams(genreIds, decade, sort_by, mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language);
+    public MovieResponseDTO randomRecommendation(List<Long> genreIds, Integer decade, String sort_by,
+                                                 String mood, String with_origin_country, String with_original_language,
+                                                 Integer with_runtime_gte, Integer with_runtime_lte, String response_language) {
+        MovieRecommendationsResponseDTO movieRecommendations = this.recommendationsByParams(genreIds, decade, sort_by,
+                mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language);
         return movieRecommendations.results().isEmpty() ? null : pickRandomMovie(movieRecommendations);
     }
 
