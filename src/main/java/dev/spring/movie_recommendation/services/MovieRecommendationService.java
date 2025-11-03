@@ -85,7 +85,7 @@ public class MovieRecommendationService {
         List<MovieResponseDTO> movies = movieRecommendationsResponseDTO.results();
         Integer listSize = movies.size();
         Random random = new Random();
-        int number = random.nextInt(20);
+        int number = random.nextInt(listSize);
         return movies.get(number);
     }
 }
