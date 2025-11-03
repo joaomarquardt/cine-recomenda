@@ -110,7 +110,7 @@ public class MovieRecommendationService {
         int maxPages = Math.min(totalPages, 500); // Limitado a 500 páginas pois a API do TMDB não permite acessar um índice de página maior que esse
         Random random = new Random();
         int randomPage = random.nextInt(maxPages) + 1;
-        MovieRecommendationsResponseDTO randomPageRecommendations = this.recommendationsByParams(genreIds, decade, sort_by, mood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language, randomPage);
+        MovieRecommendationsResponseDTO randomPageRecommendations = this.recommendationsByParams(genreIds, decade, finalSortBy, finalMood, with_origin_country, with_original_language, with_runtime_gte, with_runtime_lte, response_language, randomPage);
         return movieRecommendations.results().isEmpty() ? null : pickRandomMovie(randomPageRecommendations);
     }
 
