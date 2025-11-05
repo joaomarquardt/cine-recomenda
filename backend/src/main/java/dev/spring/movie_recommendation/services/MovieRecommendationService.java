@@ -67,7 +67,7 @@ public class MovieRecommendationService {
                         builder.queryParam("withOriginCountry", withOriginCountry);
                     }
                     if (sortBy != null) {
-                        builder.queryParam("sortBy", sortBy);
+                        builder.queryParam("sortBy", sortBy + ".desc");
                     }
                     if (decade != null) {
                         String releaseDateGte = decade + "-01-01";
