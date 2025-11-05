@@ -7,8 +7,10 @@ import dev.spring.movie_recommendation.dtos.MovieResponseDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriBuilder;
 
 import java.util.ArrayList;
@@ -44,7 +46,8 @@ public class MovieRecommendationService {
                 List<Long> moodGenreIds = moodOption.getGenreIds();
                 finalGenreIds.addAll(moodGenreIds);
             } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Invalid mood option: " + mood);
+                String moodOptions = String.join(", ", java.util.Arrays.stream(MoodOptions.values()).map(Enum::name).collect(Collectors.toList()));
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid mood option: " + mood + ". Valid options are: " + moodOptions, e);
             }
         }
         return restClientTmdb.get()
