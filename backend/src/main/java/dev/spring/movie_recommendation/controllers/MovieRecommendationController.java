@@ -1,16 +1,13 @@
 package dev.spring.movie_recommendation.controllers;
 
+import dev.spring.movie_recommendation.dtos.MovieDetailsDTO;
 import dev.spring.movie_recommendation.dtos.MovieRecommendationsResponseDTO;
 import dev.spring.movie_recommendation.dtos.MovieResponseDTO;
 import dev.spring.movie_recommendation.services.MovieRecommendationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
