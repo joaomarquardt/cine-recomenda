@@ -2,6 +2,7 @@ package dev.spring.movie_recommendation.services;
 
 import dev.spring.movie_recommendation.domain.enums.MoodOptions;
 import dev.spring.movie_recommendation.domain.enums.SortByOptions;
+import dev.spring.movie_recommendation.dtos.MovieDetailsDTO;
 import dev.spring.movie_recommendation.dtos.MovieRecommendationsResponseDTO;
 import dev.spring.movie_recommendation.dtos.MovieResponseDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -115,6 +116,19 @@ public class MovieRecommendationService {
         int randomPage = random.nextInt(maxPages) + 1;
         MovieRecommendationsResponseDTO randomPageRecommendations = this.recommendationsByParams(genreIds, decade, finalSortBy, finalMood, withOriginCountry, withOriginalLanguage, withRuntimeGte, withRuntimeLte, responseLanguage, randomPage);
         return movieRecommendations.results().isEmpty() ? null : pickRandomMovie(randomPageRecommendations);
+    }
+
+    public MovieDetailsDTO getMovieDetails(Long movieId, String responseLanguage) {
+        return restClientTmdb.get()
+                .uri(uriBuilder -> {
+                    UriBuilder builder = uriBuilder.path("movie/{movieId}");
+                    if (responseLanguage != null) {
+                        builder.queryParam("language", responseLanguage);
+                    }
+                    return builder.build(movieId);
+                })
+                .retrieve()
+                .body(new ParameterizedTypeReference<MovieDetailsDTO>() {});
     }
 
     private MovieResponseDTO pickRandomMovie(MovieRecommendationsResponseDTO movieRecommendationsResponseDTO) {
