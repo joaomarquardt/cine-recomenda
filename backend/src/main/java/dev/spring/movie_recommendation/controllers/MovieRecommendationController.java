@@ -38,4 +38,9 @@ public class MovieRecommendationController {
         return new ResponseEntity<>(movieRecommendations, HttpStatus.OK);
     }
 
+    @GetMapping("{movieId}/details")
+    public ResponseEntity<MovieDetailsDTO> getMovieDetails(@PathVariable Long movieId, @RequestParam(required = false) String responseLanguage) {
+        MovieDetailsDTO movieDetails = movieRecommendationService.getMovieDetails(movieId, responseLanguage);
+        return new ResponseEntity<>(movieDetails, HttpStatus.OK);
+    }
 }
