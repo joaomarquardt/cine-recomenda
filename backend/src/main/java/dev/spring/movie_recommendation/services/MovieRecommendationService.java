@@ -59,13 +59,13 @@ public class MovieRecommendationService {
                         builder.queryParam("with_genres", genreString);
                     }
                     if (withOriginalLanguage != null) {
-                        builder.queryParam("withOriginalLanguage", withOriginalLanguage);
+                        builder.queryParam("with_original_language", withOriginalLanguage);
                     }
                     if (withOriginCountry != null) {
-                        builder.queryParam("withOriginCountry", withOriginCountry);
+                        builder.queryParam("with_origin_country", withOriginCountry);
                     }
                     if (sortBy != null) {
-                        builder.queryParam("sortBy", sortBy + ".desc");
+                        builder.queryParam("sort_by", sortBy + ".desc");
                     }
                     if (decade != null) {
                         String releaseDateGte = decade + "-01-01";
