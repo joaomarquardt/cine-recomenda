@@ -62,7 +62,7 @@ public class MovieRecommendationService {
                         builder.queryParam("with_original_language", withOriginalLanguage);
                     }
                     if (withOriginCountry != null) {
-                        builder.queryParam("with_origin_country", withOriginCountry);
+                        builder.queryParam("with_origin_country", withOriginCountry.toUpperCase());
                     }
                     if (sortBy != null) {
                         builder.queryParam("sort_by", sortBy + ".desc");
