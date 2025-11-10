@@ -47,7 +47,7 @@ const MovieResults: React.FC<Props> = ({ singleMovie, movieCollection, loading }
                 📊 {movieCollection.total_results} filmes encontrados
               </span>
               <span className="stats-item">
-                📄 Página 1 de {movieCollection.total_pages}
+                📄 Página {movieCollection.page} de {movieCollection.total_pages}
               </span>
             </div>
           </div>
