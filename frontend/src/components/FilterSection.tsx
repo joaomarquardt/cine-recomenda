@@ -43,9 +43,9 @@ const MOODS = [
   { value: 'happy', label: '😊 Animado' },
   { value: 'adventurous', label: '🤠 Aventureiro' },
   { value: 'history', label: '🌎 Historiador' },
-  { value: 'relaxing', label: '😌 Relaxante' },
+  { value: 'relaxing', label: '😌 Relaxado' },
   { value: 'romantic', label: '💕 Romântico' },
-  { value: 'spooky', label: '😱 Assustador' }
+  { value: 'spooky', label: '😱 Corajoso' }
 ];
 
 const LANGUAGES = [
