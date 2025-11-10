@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { type MovieFilters, type RecommendationType, type Movie, type MovieRecommendationsResponse } from '../types/Movie';
 import { MovieService } from '../services/movieService';
 import RecommendationTypeSelector from './RecommendationTypeSelector';
@@ -15,6 +15,7 @@ const MovieRecommendationForm: React.FC = () => {
   const [singleMovie, setSingleMovie] = useState<Movie | null>(null);
   const [movieCollection, setMovieCollection] = useState<MovieRecommendationsResponse | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +51,12 @@ const MovieRecommendationForm: React.FC = () => {
   };
 
   const handlePageChange = (page: number) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (resultsRef.current) {
+      const yOffset = -20;
+      const y = resultsRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
     fetchMovies(page);
   };
 
@@ -104,13 +110,13 @@ const MovieRecommendationForm: React.FC = () => {
       </form>
 
       {error && <div className="error">{error}</div>}
-
-      <MovieResults
-        singleMovie={singleMovie}
-        movieCollection={movieCollection}
-        loading={loading}
-      />
-
+      <div ref={resultsRef}>
+        <MovieResults
+          singleMovie={singleMovie}
+          movieCollection={movieCollection}
+          loading={loading}
+        />
+      </div>
       {movieCollection && movieCollection.total_pages > 1 && !loading && (
         <Pagination
           currentPage={currentPage}
